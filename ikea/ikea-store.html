@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@100;300;400;500;700&family=EB+Garamond:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <title>IKEA - 매장 안내</title>
+    <style>
+        /*font-family: 'EB Garamond', serif;
+        font-family: 'Alegreya Sans', sans-serif;
+        font-family: 'Noto Sans KR', sans-serif;*/
+        * {
+            position: relative;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        .form a {
+            text-decoration: none;
+            color: #525252;
+            font-family: 'Alegreya Sans', sans-serif;
+            transition: 0.5s;
+            line-height: 30px;
+
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+
+
+        header {
+            width: 100%;
+            height: 80px;
+            background-color: white;
+            position: sticky;
+            top: 0;
+            left: 0;
+            z-index: 99;
+        }
+
+
+        i {
+            color: #333333;
+        }
+
+        .bg {
+            background-color: rgba(0, 0, 0, 0.2);
+            position: fixed;
+            left: 0;
+            top: 0;
+            z-index: 999;
+            width: 100%;
+            height: 100vh;
+            display: none;
+        }
+
+        .tab {
+            width: 400px;
+            height: 100vh;
+            background-color: white;
+            position: fixed;
+            top: 0;
+            left: -400px;
+            z-index: 9999;
+            padding: 30px;
+            box-sizing: border-box;
+        }
+
+        .tab .x-btn {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .tab .x-btn span {
+            display: block;
+            height: 1px;
+            width: 40px;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .tab .x-btn .x1 {
+            transform: rotate(-45deg);
+        }
+
+        .tab .x-btn .x2 {
+            transform: rotate(45deg);
+        }
+
+        .tab .logo {
+            position: absolute;
+            top: 80px;
+            left: 100px;
+        }
+
+        .tab .menu-box {
+            padding-left: 70px;
+            padding-top: 50px;
+            top: 80px;
+        }
+
+        .tab .menu-box .t-menu {
+            font-family: 'Noto Sans KR', sans-serif;
+            color: #333333;
+        }
+
+        .tab .menu-box .t-menu .bo {
+            margin-top: 20px;
+        }
+
+        .tab .menu-box .t-menu .big {
+            font-size: 35px;
+        }
+
+        .tab .menu-box .t-menu .bold {
+            font-size: 20px;
+            line-height: 30px;
+        }
+
+        .tab .menu-box .t-menu .small {
+            font-size: 15px;
+            line-height: 25px;
+        }
+
+        .section2 {
+            display: flex;
+            width: calc(100% - 50px);
+            height: 80px;
+            align-items: center;
+            margin: 0 auto;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1)
+        }
+
+        .section2 .ham-btn {
+            width: 150px;
+            height: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            cursor: pointer;
+        }
+
+        .section2 .ham-btn .bars {
+            width: 40px;
+            height: 24px;
+        }
+
+        .section2 .ham-btn .bars span {
+            display: block;
+            width: 100%;
+            height: 1px;
+            background-color: #a7a7a7;
+            position: absolute;
+            top: 50%;
+            left: 0;
+        }
+
+        .section2 .ham-btn .bars .l1 {
+            position: absolute;
+            top: 0;
+        }
+
+        .section2 .ham-btn .bars .l2 {}
+
+        .section2 .ham-btn .bars .l3 {
+            position: absolute;
+            top: 24px;
+        }
+
+        .section2 .logo {
+            width: 150px;
+            height: 61px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 20px;
+            top:3px;
+        }
+
+        .section2 .logo img {
+            width: 80%;
+            height: 80%;
+        }
+
+        .section2 .menu {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 30px;
+        }
+
+        .section2 .menu .menu-li {
+            margin-right: 25px;
+            font-family: 'Noto Sans KR', sans-serif;
+            font-weight: 300;
+            font-size: 16px;
+        }
+
+        .section2 .menu .menu-li a {
+            color: #595959;
+        }
+
+        .section2 input {
+            height: 55%;
+            width: 650px;
+            border-radius: 50px;
+            border: none;
+            background-color: #eeeeee;
+            text-indent: 30px;
+            top:-8px;
+            color: #595959;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        .section2 .icons {
+            color: #595959;
+            position: absolute;
+            right: 0;
+            margin-right: 50px;
+        }
+
+        .section2 .icons i {
+            margin-right: 25px;
+            font-size: 20px;
+        }
+
+
+
+        .fnq {
+            width: 100%;
+            height: 650px;
+        }
+
+        .fnq .main-image {
+            width: 100%;
+            height: 100%;
+            background-image: url(img/ikea-store-d6f85279c39bcc2d3f9b283156f2cec6.jpg);
+            background-size: cover;
+            background-position-y: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            background-attachment: fixed;
+        }
+
+        .fnq .main-image .line {
+            display: block;
+            width: 160px;
+            height: 1px;
+            background-color: rgb(255, 255, 255);
+        }
+
+        .fnq .main-image .title {
+            padding: 0 80px;
+            letter-spacing: 5px;
+            font-size: 51px;
+            font-family: 'Noto Sans KR', sans-serif
+        }
+
+
+        .contents {
+            max-width: 1300px;
+            height: fit-content;
+            margin: 0 auto;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 130px 0;
+        }
+
+        .gold-title {
+            font-size: 15px;
+            margin-bottom: 20px;
+            font-family: 'Noto Sans KR', sans-serif;
+            color: #0058ab;
+        }
+
+        .contents .big-title {
+            display: flex;
+        }
+
+
+
+
+        .contents .big-title .line {
+            display: block;
+            width: 160px;
+            height: 1px;
+            background-color: rgba(20, 20, 20, 0.3);
+            top: 25px;
+        }
+
+        .contents .big-title .title {
+            padding: 0 80px;
+            letter-spacing: 5px;
+            font-size: 36px;
+            font-family: 'Noto Sans KR', sans-serif;
+            color: #666666;
+        }
+
+        .contents .text-box {
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 26px;
+            color: #666666;
+            margin-top: 20px;
+        }
+
+        .contents .text-box .txt {
+            width: 600px;
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 26px;
+            color: #666666;
+            margin-top: 20px;
+        }
+
+
+        .map {
+            margin: 0 auto;
+            max-width: 1200px;
+            height: 400px;
+            background-color: rgba(20, 20, 20, 0.3);
+        }
+
+
+        .form {
+            max-width: 1200px;
+            height: fit-content;
+            margin: 0 auto;
+            display: flex;
+        }
+
+        .form>div {
+            width: 50%;
+            height: 100%;
+
+            padding: 100px 0;
+            box-sizing: border-box;
+        }
+
+        .form>div .title2 {
+            font-size: 36px;
+            font-family: 'Noto Sans KR', sans-serif;
+            color: #595959;
+            margin-top: -15px;
+        }
+
+        .form .right .a-box {
+            margin-top: 20px;
+        }
+
+        .form .right .icon-box {
+            margin-top: 20px;
+        }
+
+        i {
+            color: #525252;
+            margin-right: 15px;
+            transition: 0.5s;
+            cursor: pointer;
+        }
+
+        i:hover {
+            color: #0058ab;
+            transition: 0.5s;
+        }
+
+
+        input {
+            border: none;
+            border-bottom: 1px solid #fbd914;
+            line-height: 30px;
+            margin-top: 15px;
+            text-indent: 5px;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        .form .left .input .long {
+            width: 80%;
+        }
+
+        .form .left .input .short {
+            width: 38.7%;
+            margin-right: 10px;
+        }
+
+        button {
+            width: 120px;
+            height: 40px;
+            border:none;
+            background-color: #0058ab;
+            color: white;
+            margin-top: 40px;
+            font-family: 'Noto Sans KR', sans-serif;
+            letter-spacing: 1px;
+            font-weight: 300;
+            cursor: pointer;
+        }
+
+        button:hover {
+            text-decoration: underline;
+        }
+
+
+
+        .footer a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .footer {
+            width: 100%;
+            height: 220px;
+            background-color: #ececec;
+        }
+
+        .footer .container2 {
+            height: 100%;
+            width: 1400px;
+            display: flex;
+            justify-content: space-between;
+            padding: 0;
+            margin: 0 auto;
+        }
+
+        .footer .container2>div {
+            padding: 30px;
+            font-size: 13px;
+            font-family: 'Noto Sans KR', sans-serif;
+            color: #7c7c7c;
+        }
+
+
+        .footer .container2 .left4 {
+            width: 40%;
+        }
+
+        .footer .container2 .left4 .underbox {
+            padding-top: 20px;
+        }
+
+        .footer .container2 .right4 {
+            width: 60%;
+        }
+
+        .footer .container2 .right4 ul {
+            display: flex;
+            position: absolute;
+            right: 30px;
+            color: #595959;
+        }
+
+        .footer .container2 .right4 ul li {
+            margin-left: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="section2">
+            <div class="ham-btn">
+                <div class="bars">
+                    <span class="line l1"></span>
+                    <span class="line l2"></span>
+                    <span class="line l3"></span>
+                </div>
+            </div>
+            <div class="logo"><a href="ikea.html"><img src="img/logo.png"></a></div>
+            <ul class="menu">
+                <li class="menu-li"><a href="ikea-store.html">매장안내</a></li>
+                <li class="menu-li"><a href="ikea-fnq.html">자주 묻는 질문</a></li>
+            </ul>
+            <input type="text" placeholder="검색어 입력">
+            <div class="icons">
+                <a href="#"><i class="fas fa-truck"></i></a>
+                <a href="#"><i class="fas fa-user"></i></a>
+                <a href="#"><i class="fas fa-heart"></i></a>
+                <a href="#"><i class="fas fa-shopping-cart"></i></a>
+            </div>
+        </div>
+    </header>
+
+    <div class="bg"></div>
+    <div class="tab">
+        <div class="x-btn">
+            <div class="bars2">
+                <span class="btn2 x1"></span>
+                <span class="btn2 x2"></span>
+            </div>
+        </div>
+        <div class="logo">
+            <img src="img/logo.png">
+        </div>
+        <div class="menu-box">
+            <ul class="t-menu">
+                <li class="big"><a href="#">모든 제품</a></li>
+                <li class="big"><a href="#">디지털 쇼룸</a></li>
+                <div class="bo">
+                    <li class="bold"><a href="#">할인 중</a></li>
+                    <li class="bold"><a href="#">신제품</a></li>
+                    <li class="bold"><a href="#">더 낮은 새로운 가격</a></li>
+                    <li class="bold"><a href="#">아이디어</a></li>
+                    <li class="bold"><a href="#">IKEA Live</a></li>
+                    <li class="bold"><a href="#">새로운 소식</a></li>
+                </div>
+                <div class="bo">
+                    <li class="small"><a href="#">매장안내</a></li>
+                    <li class="small"><a href="#">IKEA Family</a></li>
+                    <li class="small"><a href="ikea-fnq.html">고객지원</a></li>
+                    <li class="small"><a href="#">배송조회</a></li>
+                    <li class="small"><a href="#">내 프로필</a></li>
+                </div>
+            </ul>
+        </div>
+    </div>
+
+
+    <section class="fnq">
+        <div class="main-image">
+            <span class="line line1"></span>
+            <span class="title">매장 안내</span>
+            <span class="line line2"></span>
+        </div>
+    </section>
+    <div class="contents">
+        <div class="gold-title">
+            Store
+        </div>
+        <div class="big-title">
+            <span class="line line1"></span>
+            <span class="title">IKEA 광명점</span>
+            <span class="line line2"></span>
+        </div>
+        <div class="text-box">
+            <p>경기도 광명시 일직동 일직로 17</p>
+            <p class="txt">
+
+                *매장
+<br>
+                월요일 - 일요일 10 : 00 ~ 21 : 00<br><br>
+                *레스토랑
+<br>
+                월요일 - 일요일 09 : 30 ~ 20 : 30
+                (마지막 주문 20 : 00)
+
+            </p>
+        </div>
+    </div>
+    <div class="map">
+        <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3168.548860515035!2d126.88068861564521!3d37.42413684002752!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357b614252e96ac1%3A0xda2f2cfd22aede78!2z7J207LyA7JWEIOq0keuqheygkA!5e0!3m2!1sko!2skr!4v1631155461491!5m2!1sko!2skr"
+            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+    </div>
+    <div class="form">
+        <div class="left">
+            <div class="title2">간편 문의</div>
+            <div class="input">
+                <input class="long" type="text" placeholder="Message">
+                <div class="flex">
+                    <input class="short" type="text" placeholder="이름">
+                    <input class="short" type="text" placeholder="E-mail">
+
+                </div>
+                <button>제출하기</button>
+            </div>
+        </div>
+        <div class="right">
+            <div class="title2">문의하기</div>
+            <div class="a-box">
+                <a href="https://goo.gl/maps/19JfPhN8tYphnoucA" target="_blank">
+                    경기도 광명시 일직동 일직로 17</a>
+                <br>
+                <a href="tel:01026772808">TEL : 1670-4532</a>
+
+                <br>
+               
+                <div class="icon-box">
+                    <i class="fab fa-facebook-square"></i>
+                    <i class="fab fa-instagram"></i>
+                    <i class="fab fa-twitter"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="footer">
+        <div class="container2">
+            <div class="left4">
+                <p>© Inter IKEA Systems B.V 1999-2021</p>
+                <div class="underbox">
+                    <p>
+                        IKEA 코리아<br>
+                        주소 : (우) 14352 경기도 광명시 일직로 17 IKEA광명점<br>
+                        사업자 등록번호 : 106-86-82871 <a href="#">사업자정보확인</a><br>
+                        대표자 : 프레드릭 요한손<br>
+                        통신판매업 신고 : 2018-경기광명-0209<br>
+                        TEL : 1670-4532<br>
+                    </p>
+                </div>
+            </div>
+            <div class="right4">
+                <ul>
+                    <li><a href="#">개인정보처리방침</a></li>
+                    <li><a href="#">쿠키 정책</a></li>
+                    <li><a href="#">쿠키 설정</a></li>
+                    <li><a href="#">웹사이트 이용약관</a></li>
+                    <li><a href="#">Responsible disclosure</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(".ham-btn").click(function () {
+        $(".bg").css({
+            display: "block"
+        })
+        $(".tab").animate({
+            left: 0 + "px"
+        })
+    })
+    $(".x-btn").click(function () {
+        $(".bg").css({
+            display: "none"
+        })
+        $(".tab").animate({
+            left: -400 + "px"
+        })
+    })
+</script>

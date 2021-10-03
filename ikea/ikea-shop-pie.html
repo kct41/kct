@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@100;300;400;500;700&family=EB+Garamond:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IKEA - 상품페이지</title>
+    <style>
+        * {
+            position: relative;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        a {
+            color: inherit;
+        }
+
+
+
+        .bg {
+            background-color: rgba(0, 0, 0, 0.2);
+            position: fixed;
+            left: 0;
+            top: 0;
+            z-index: 999;
+            width: 100%;
+            height: 100vh;
+            display: none;
+        }
+
+        .tab {
+            width: 400px;
+            height: 100vh;
+            background-color: white;
+            position: fixed;
+            top: 0;
+            left: -400px;
+            z-index: 9999;
+            padding: 30px;
+            box-sizing: border-box;
+        }
+
+        .tab .x-btn {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .tab .x-btn span {
+            display: block;
+            height: 1px;
+            width: 40px;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .tab .x-btn .x1 {
+            transform: rotate(-45deg);
+        }
+
+        .tab .x-btn .x2 {
+            transform: rotate(45deg);
+        }
+
+        .tab .logo {
+            position: absolute;
+            top: 80px;
+            left: 100px;
+        }
+
+        .tab .menu-box {
+            padding-left: 70px;
+            padding-top: 50px;
+            top: 80px;
+        }
+
+        .tab .menu-box .t-menu {
+            font-family: 'Noto Sans KR', sans-serif;
+            color: #333333;
+        }
+
+        .tab .menu-box .t-menu .bo {
+            margin-top: 20px;
+        }
+
+        .tab .menu-box .t-menu .big {
+            font-size: 35px;
+        }
+
+        .tab .menu-box .t-menu .bold {
+            font-size: 20px;
+            line-height: 30px;
+        }
+
+        .tab .menu-box .t-menu .small {
+            font-size: 15px;
+            line-height: 25px;
+        }
+
+        header {
+            width: 100%;
+            height: 80px;
+            background-color: white;
+        }
+
+
+        .review i {
+            color: #fbd914;
+        }
+
+        .section2 {
+            display: flex;
+            width: calc(100% - 50px);
+            height: 80px;
+            align-items: center;
+            margin: 0 auto;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1)
+        }
+
+        .section2 .ham-btn {
+            width: 150px;
+            height: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            cursor: pointer;
+        }
+
+        .section2 .ham-btn .bars {
+            width: 40px;
+            height: 24px;
+        }
+
+        .section2 .ham-btn .bars span {
+            display: block;
+            width: 100%;
+            height: 1px;
+            background-color: #a7a7a7;
+            position: absolute;
+            top: 50%;
+            left: 0;
+        }
+
+        .section2 .ham-btn .bars .l1 {
+            position: absolute;
+            top: 0;
+        }
+
+        .section2 .ham-btn .bars .l2 {}
+
+        .section2 .ham-btn .bars .l3 {
+            position: absolute;
+            top: 24px;
+        }
+
+        .section2 .logo {
+            width: 150px;
+            height: 61px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 20px;
+        }
+
+        .section2 .logo img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .section2 .menu {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 30px;
+        }
+
+        .section2 .menu .menu-li {
+            margin-right: 25px;
+            font-family: 'Noto Sans KR', sans-serif;
+            font-weight: 300;
+            font-size: 16px;
+            top: 3px;
+        }
+
+        .section2 .menu .menu-li a {
+            color: #595959;
+        }
+
+        .section2 input {
+            height: 55%;
+            width: 650px;
+            border-radius: 50px;
+            border: none;
+            background-color: #eeeeee;
+            text-indent: 30px;
+            color: #595959;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        .section2 .icons {
+            color: #595959;
+            position: absolute;
+            right: 0;
+            margin-right: 50px;
+        }
+
+        .section2 .icons i {
+            margin-right: 25px;
+            font-size: 20px;
+        }
+
+
+        .main {
+            background-image: url(img/19742.jpg);
+            background-position: center;
+            background-size: cover;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .main .container {
+            height: 150px;
+            width: 80%;
+            display: flex;
+            font-size: 40px;
+            align-items: center;
+            color: #727272;
+        }
+
+        .box {
+            margin-top: 150px;
+            width: 50%;
+            height: 570px;
+        }
+
+        .product .container {
+            display: flex;
+        }
+
+        .product .container .left {
+            padding-right: 50px;
+        }
+
+        .product .container .right {
+            padding: 50px;
+            color: #666666;
+        }
+
+        .product .container .box img {
+            width: 100%;
+            position: absolute;
+        }
+
+
+        .product .container .right .price {
+            margin: 20px 0;
+            font-size: 18px;
+            color: #666666;
+        }
+
+        .product .container .right .price i {
+            color: #666666;
+        }
+
+        .product .container .right .info {
+            line-height: 25px;
+            margin: 30px 0 40px 0;
+            font-size: 15px;
+            color: #666666;
+        }
+
+        .num-btn {
+            width: 70px;
+            height: 50px;
+            text-indent: 20px;
+            border: 1px solid rgba(0, 0, 0, 0.4);
+        }
+
+        .cart {
+            margin-left: 20px;
+            width: 120px;
+            height: 50px;
+            color: #666666;
+            background-color: transparent;
+            border: none;
+            border: 1px solid rgba(0, 0, 0, 0.4);
+            transition: 0.3s;
+        }
+
+        .cart:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+            transition: 0.3s;
+        }
+
+
+        .footer {
+            width: 100%;
+            height: 220px;
+            background-color: #ececec;
+        }
+
+        .footer .container2 {
+            height: 100%;
+            width: 1400px;
+            display: flex;
+            justify-content: space-between;
+            padding: 0;
+            margin: 0 auto;
+        }
+
+        .footer .container2>div {
+            padding: 30px;
+            font-size: 13px;
+            font-family: 'Noto Sans KR', sans-serif;
+            color: #7c7c7c;
+        }
+
+
+        .footer .container2 .left4 {
+            width: 40%;
+        }
+
+        .footer .container2 .left4 .underbox {
+            padding-top: 20px;
+        }
+
+        .footer .container2 .right4 {
+            width: 60%;
+        }
+
+        .footer .container2 .right4 ul {
+            display: flex;
+            position: absolute;
+            right: 30px;
+            color: #595959;
+        }
+
+        .footer .container2 .right4 ul li {
+            margin-left: 10px;
+        }
+
+        .etc {
+            width: 1200px;
+            margin: 50px auto;
+            height: 260px;
+            color: #666666;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .etc .btn-box {
+            width: 80%;
+            height: 50px;
+            margin: 0 auto;
+            flex: auto;
+            text-align: center;
+        }
+
+        .etc .btn {
+            font-size: 25px;
+            width: 33%;
+            border-radius: 0;
+            ;
+        }
+
+        .right>div i {
+            color: #fbd914;
+        }
+
+        .etc .btn.on {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .etc .btn-box .btn3 {
+            margin-right: 0;
+        }
+
+        .etc .boxes {
+            width: 80%;
+            margin: 30px auto;
+        }
+
+        .etc .box2 {
+            display: none;
+            position: absolute;
+            padding: 0 30px;
+            font-size: 17px;
+        }
+
+        .etc .box2.on {
+            display: block;
+        }
+
+        .b3 .flex {
+            display: flex;
+        }
+
+        .b3 h4 {
+            margin-bottom: 30px;
+        }
+
+        .b3 .flex .right {
+            padding-left: 20px;
+        }
+
+        .b3 .flex .right>div {
+            margin-bottom: 8px;
+        }
+
+        .price i {
+            color: #666666;
+            margin-right: 5px;
+            font-size: 12px;
+        }
+
+        .b1 {
+            font-size: 15px;
+        }
+
+        .rel {
+            display: flex;
+        }
+
+
+
+        .rel {
+            margin-top: 30px;
+            margin-bottom: 100px;
+        }
+
+        .rel .item {
+            width: calc(100% - 50px);
+            height: 400px;
+            cursor: pointer;
+            margin: 0 auto;
+            margin-right: 30px;
+        }
+
+        .rel:last-child {
+            margin-right: 0;
+        }
+
+        .rel .item .pic-box img {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+        }
+
+        .rel .item .info {
+            top: 300px;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        .rel .item .info h4 {
+            font-size: 14px;
+            letter-spacing: 1px;
+            color: rgb(27, 27, 27);
+        }
+
+        .rel .item .info p {
+            font-size: 14px;
+            color: #494949;
+            margin-bottom: 5px;
+        }
+
+        .rel .item .info h3 {
+            color: rgb(27, 27, 27);
+        }
+
+        .rel .item .info i {
+            font-size: 11px;
+            top: -5px;
+            margin-right: 3px;
+        }
+
+        .rel .item .img2 {
+            opacity: 0;
+            transition: 0.5s;
+        }
+
+        .rel .item .info span {
+            display: block;
+            width: 50px;
+            height: 50px;
+            background-color: #0058ab;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            bottom: 3px;
+            right: 3px;
+            opacity: 0;
+            transition: 0.5s;
+        }
+
+        .rel .item .info span i {
+            color: #fbd914;
+            font-size: 18px;
+            top: 0;
+            left: 1px;
+        }
+
+
+
+        .rel .item:hover .img2 {
+            opacity: 1;
+            transition: 0.5s;
+        }
+
+        .rel .item:hover .btn {
+            opacity: 1;
+            transition: 0.5s;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg"></div>
+    <div class="tab">
+        <div class="x-btn">
+            <div class="bars2">
+                <span class="btn2 x1"></span>
+                <span class="btn2 x2"></span>
+            </div>
+        </div>
+        <div class="logo">
+            <img src="img/logo.png">
+        </div>
+        <div class="menu-box">
+            <ul class="t-menu">
+                <li class="big"><a href="#">모든 제품</a></li>
+                <li class="big"><a href="#">디지털 쇼룸</a></li>
+                <div class="bo">
+                    <li class="bold"><a href="#">할인 중</a></li>
+                    <li class="bold"><a href="#">신제품</a></li>
+                    <li class="bold"><a href="#">더 낮은 새로운 가격</a></li>
+                    <li class="bold"><a href="#">아이디어</a></li>
+                    <li class="bold"><a href="#">IKEA Live</a></li>
+                    <li class="bold"><a href="#">새로운 소식</a></li>
+                </div>
+                <div class="bo">
+                    <li class="small"><a href="#">매장안내</a></li>
+                    <li class="small"><a href="#">IKEA Family</a></li>
+                    <li class="small"><a href="#">고객지원</a></li>
+                    <li class="small"><a href="#">배송조회</a></li>
+                    <li class="small"><a href="#">내 프로필</a></li>
+                </div>
+            </ul>
+        </div>
+    </div>
+
+
+    <header>
+        <div class="section2">
+            <div class="ham-btn">
+                <div class="bars">
+                    <span class="line l1"></span>
+                    <span class="line l2"></span>
+                    <span class="line l3"></span>
+                </div>
+            </div>
+            <div class="logo"><a href="ikea.html"><img src="img/logo.png"></a></div>
+            <ul class="menu">
+                <li class="menu-li"><a href="ikea-store.html">매장안내</a></li>
+                <li class="menu-li"><a href="ikea-fnq.html">자주 묻는 질문</a></li>
+            </ul>
+            <input type="text" placeholder="검색어 입력">
+            <div class="icons">
+                <a href="#"><i class="fas fa-truck"></i></a>
+                <a href="#"><i class="fas fa-user"></i></a>
+                <a href="#"><i class="fas fa-heart"></i></a>
+                <a href="#"><i class="fas fa-shopping-cart"></i></a>
+            </div>
+        </div>
+    </header>
+
+
+    <div class="main">
+
+        <div class="container">
+            SHOP
+        </div>
+    </div>
+
+    <div class="product">
+        <div class="container">
+            <div class="box left">
+                <img src="img/pie (2).jpg">
+                <img src="img/pie (1).jpg">
+            </div>
+            <div class="box right">
+                <h2>HÖSTKVÄLL 회스트크벨</h2>
+                <div class="review">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    (1 customer review)</div>
+                <div class="price">
+                    <i class="fas fa-won-sign"></i>14,900
+                </div>
+                <div class="info">
+                    처음 사용하기 전에 이 제품을 세척하세요.<br>
+                    화구나 열판 위에서 사용하지 마세요.
+                </div>
+                <input class="num-btn" min="0" type="number" placeholder="0">
+                <button class="cart">카트에 담기</button>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container etc">
+        <div class="btn-box">
+            <div class="btn on btn1">제품 설명</div>
+            <div class="btn btn2">제품 크기</div>
+            <div class="btn btn3">고객 후기</div>
+        </div>
+        <div class="boxes">
+            <div class="box2 on b1">가을 시즌상품인 회스트크벨 컬렉션을 활용하여 따뜻한 가을분위기를 연출해보세요.<br>
+                <br>
+                디자이너<br>
+
+                IKEA of Sweden</div>
+            <div class="box2 b2">
+                높이:
+                6 cm<br>
+                지름:
+                24 cm</div>
+            <div class="box2 b3">
+                <h4>1개의 리뷰가 존재합니다.</h4>
+                <div class="flex">
+                    <div class="left">
+                        <img src="img/user-img-2-100x100.jpg">
+                    </div>
+                    <div class="right">
+                        <div> <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i></div>
+                        <div class="customer">홍길동 - 2021.09.13</div>
+                        <div class="line">매우 좋습니다!</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <h2>관련 제품</h2>
+    </div>
+    <div class="container rel">
+        <div class="item">
+            <div class="pic-box">
+                <img class="img1" src="img/towel (1).jpg">
+                <img class="img2" src="img/towel (2).jpg">
+            </div>
+            <div class="info">
+                <h4>HÖSTKVÄLL 회스트크벨</h4>
+                <p>행주, 50x70 cm</p>
+                <h3><i class="fas fa-won-sign"></i>6,900</h3>
+                <span class="btn"><i class="fas fa-cart-plus"></i></span>
+            </div>
+        </div>
+        <div class="item">
+            <div class="pic-box">
+                <img class="img1" src="img/cushion (1).jpg">
+                <img class="img2" src="img/cushion (2).jpg">
+            </div>
+            <div class="info">
+                <h4>HÖSTKVÄLL 회스트크벨</h4>
+                <p>쿠션커버, 50x50 cm</p>
+                <h3><i class="fas fa-won-sign"></i>7,900</h3>
+                <span class="btn"><i class="fas fa-cart-plus"></i></span>
+            </div>
+        </div>
+        <div class="item">
+            <div class="pic-box">
+                <img class="img1" src="img/matt (1).jpg">
+                <img class="img2" src="img/matt (2).jpg">
+            </div>
+            <div class="info">
+                <h4>HÖSTKVÄLL 회스트크벨</h4>
+                <p>식탁장식보, 35.5x183 cm</p>
+                <h3><i class="fas fa-won-sign"></i>14,900</h3>
+                <span class="btn"><i class="fas fa-cart-plus"></i></span>
+            </div>
+        </div>
+        <div class="item">
+            <div class="pic-box">
+                <img class="img1" src="img/lease (1).jpg">
+                <img class="img2" src="img/lease (2).jpg">
+            </div>
+            <div class="info">
+                <h4>HÖSTKVÄLL 회스트크벨</h4>
+                <p>조화리스, 43 cm</p>
+                <h3><i class="fas fa-won-sign"></i>14,900</h3>
+                <span class="btn"><i class="fas fa-cart-plus"></i></span>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="footer">
+        <div class="container2">
+            <div class="left4">
+                <p>© Inter IKEA Systems B.V 1999-2021</p>
+                <div class="underbox">
+                    <p>
+                        IKEA 코리아<br>
+                        주소 : (우) 14352 경기도 광명시 일직로 17 IKEA광명점<br>
+                        사업자 등록번호 : 106-86-82871 <a href="#">사업자정보확인</a><br>
+                        대표자 : 프레드릭 요한손<br>
+                        통신판매업 신고 : 2018-경기광명-0209<br>
+                        TEL : 1670-4532<br>
+                    </p>
+                </div>
+            </div>
+            <div class="right4">
+                <ul>
+                    <li><a href="#">개인정보처리방침</a></li>
+                    <li><a href="#">쿠키 정책</a></li>
+                    <li><a href="#">쿠키 설정</a></li>
+                    <li><a href="#">웹사이트 이용약관</a></li>
+                    <li><a href="#">Responsible disclosure</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+</html>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(".item2").click(function () {
+        i = $(this).index();
+        $(".item2").eq(i).toggleClass("on");
+        $(".item2").eq(i).find(".answer").slideToggle();
+        $(".item2").not($(".item2").eq(i)).find(".answer").slideUp();
+        $(".item2").not($(".item2").eq(i)).removeClass("on");
+    })
+
+
+    $(".ham-btn").click(function () {
+        $(".bg").css({
+            display: "block"
+        })
+        $(".tab").animate({
+            left: 0 + "px"
+        })
+    })
+    $(".x-btn").click(function () {
+        $(".bg").css({
+            display: "none"
+        })
+        $(".tab").animate({
+            left: -400 + "px"
+        })
+    })
+
+    $(".btn").click(function () {
+        i = $(this).index();
+        $(".btn").eq(i).addClass("on")
+        $(".box2").eq(i).addClass("on")
+        $(".btn").not($(".btn").eq(i)).removeClass("on")
+        $(".box2").not($(".box2").eq(i)).removeClass("on")
+    })
+
+
+    var num = 0;
+
+
+    function aa() {
+        num++;
+        num = num % 1;
+        slide();
+    }
+
+    function slide() {
+        active = $(".box img").eq(num);
+        active.stop().fadeIn();
+        $(".box img").not(active).stop().fadeOut();
+    }
+
+    timer = setInterval(aa, 2000)
+
+    timer();
+</script>
